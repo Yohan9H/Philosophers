@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 18:04:45 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/19 11:37:19 by yohurteb         ###   ########.fr       */
+/*   Created: 2024/07/18 12:47:19 by yohurteb          #+#    #+#             */
+/*   Updated: 2024/07/19 12:00:35 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	main(int ac, char **av)
-{
-	t_data	data;
-	t_philo	philos[MAX_PHILO];
-	mutex	forks[MAX_PHILO];
-	int		i;
 
-	if (check_args(ac, av, &data) == 1)
+int	make_threads(t_data *data)
+{
+	pthread_t	verif_stop;
+	int			i;
+
+	i = 0;
+	if (pthread_create(&verif_stop, NULL, &if_stop, data->philos) == 0)
+		return (free_all(data), -1);
+	while (i <= data->nb_philo)
 	{
-		error(ERROR_ARG);
-		return (1);
+		if (pthread_create(&data->philos[i].thread, NULL, &routine, &data) 
+			!= 0);
+			return (free_all(data), -1);
+		i++;
 	}
-	init_data(&data, philos, forks);
-	init_forks(&data, forks);
-	init_philo(&data, philos, forks);
-	make_threads(&data);
+	// Si ici = philo mort donc :
+	// join le thread verif_stop;
+	// join tous les threads des philos
 }
