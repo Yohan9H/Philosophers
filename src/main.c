@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:04:45 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/19 11:37:19 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:29:56 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	init_data(&data, philos, forks);
-	init_forks(&data, forks);
-	init_philo(&data, philos, forks);
-	make_threads(&data);
+	init_forks(&data);
+	init_philo(philos, &data);
+	make_threads(philos, &data);
 }
