@@ -6,49 +6,52 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 10:48:25 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/22 16:58:22 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:38:40 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	eat(t_philo *philo)
+void	ft_eat(t_philo *philo) // faire condition pour 1 philo
 {
 	pthread_mutex_lock(&philo->l_fork);
 	pthread_mutex_lock(&philo->r_fork);
-	print_status(philo, "has taken a fork", NULL);
-	pthread_mutex_lock(&philo->eat_lock);
-	print_status(philo, "is eating", NULL);
-	usleep(philo->time_to_eat);
+	print_status(philo, "has taken a fork", give_time(philo->data));
+	print_status(philo, "is eating", give_time(philo->data));
+	pthread_mutex_lock(philo->eat_lock);
+	philo->last_eat = give_time(philo->data);
+	ft_usleep(philo->time_to_eat, philo->data);
 	philo->eating++;
-	pthread_mutex_unlock(&philo->eat_lock);
+	pthread_mutex_unlock(philo->eat_lock);
 	pthread_mutex_unlock(&philo->l_fork);
 	pthread_mutex_unlock(&philo->r_fork);
-	// add time
 }
 
-void	sleep(t_philo *philo)
+void	ft_sleep(t_philo *philo)
 {
-	print_status(philo, "is sleeping", NULL);
-	usleep(philo->time_to_sleep);
+	print_status(philo, "is sleeping", give_time(philo->data));
+	ft_usleep(philo->time_to_sleep, philo->data);
 }
 
-void	think(t_philo *philo)
+void	ft_think(t_philo *philo)
 {
-	print_status(philo, "is thinking", NULL);
-	usleep(philo->time_to_sleep);
+	print_status(philo, "is thinking", give_time(philo->data));
 }
  
-int	routine(t_philo *philo)
+void	*routine(void *philo_void)
 {
-	size_t	i;
-	t_time	time;
+	t_philo	*philo;
 
-	i = 0;
+	philo = (t_philo *)philo_void;
 	while (philo->data->dead_flag != 1)
 	{
-		eat(philo);
-		sleep(philo);
-		think(philo);
+		ft_eat(philo);
+		if (philo->data->dead_flag == 1)
+			return (NULL);
+		ft_sleep(philo);
+		if (philo->data->dead_flag == 1)
+			return (NULL);
+		ft_think(philo);
 	}
+	return (NULL);
 }

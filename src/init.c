@@ -6,25 +6,22 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:53:43 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/22 17:22:33 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:35:48 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-// Ajouter le temps 
-
-void	init_data(t_data *data, t_philo philos[], mutex	forks[])
+void	init_data(t_data *data, mutex forks[])
 {
 	data->dead_flag = 0;
 	pthread_mutex_init(&data->dead_lock, NULL);
-	pthread_mutex_init(&data->eat_lock, NULL);
 	pthread_mutex_init(&data->eat_lock, NULL);
 	pthread_mutex_init(&data->write_lock, NULL);
 	data->forks = forks;
 }
 
-void	init_forks(t_data *data) 
+void	init_forks(t_data *data)
 {
 	int	i;
 
@@ -48,14 +45,24 @@ void	init_philo(t_philo *philos, t_data *data)
 		philos[i].data = data;
 		philos[i].num = i;
 		philos[i].eating = 0;
+		philos[i].start_time = give_time(data);
+		philos[i].last_eat = give_time(data);
+		philos[i].time_to_die = data->set_t_die;
+		philos[i].time_to_eat = data->set_t_eat;
+		philos[i].time_to_sleep = data->set_t_sleep;
 		philos[i].dead_lock = &data->dead_lock;
 		philos[i].eat_lock = &data->eat_lock;
 		philos[i].write_lock = &data->write_lock;
-		philos[i].l_fork = philos[i].data->forks[i];
-		if (i == 0)
-			philos[i].r_fork = philos[i].data->forks[nb_p - 1];
+		if (i % 2 == 0)
+		{
+			philos[i].l_fork = philos[i].data->forks[i];
+			philos[i].r_fork = philos[i].data->forks[(i + 1) % nb_p];
+		}
 		else
-			philos[i].r_fork = philos[i].data->forks[i - 1];
+		{
+			philos[i].l_fork = philos[i].data->forks[(i + 1) % nb_p];
+			philos[i].r_fork = philos[i].data->forks[i];
+		}
 		i++;
 	}
 }

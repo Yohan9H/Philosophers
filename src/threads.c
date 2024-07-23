@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:47:19 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/22 16:47:28 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:06:38 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,19 @@ int	make_threads(t_philo *philos, t_data *data)
 	int	i;
 
 	i = 0;
-	while (i <= data->nb_philo)
+	while (i < data->nb_philo)
 	{
-		if (pthread_create(philos[i].thread, NULL, &routine, &philos[i]) 
-			!= 0);
-			return (free_all(data), -1);
+		if (pthread_create(&philos[i].thread, NULL, &routine, &philos[i]) 
+			!= 0)
+			return (free_all(philos), -1);
 		i++;
 	}
 	if_stop(data, philos);
-	while (i >= 0)
+	i = 0;
+	while (i < data->nb_philo)
 	{
 		pthread_join(philos[i].thread, NULL);
-		i--;
+		i++;
 	}
 	free_all(philos);
 	return (0);

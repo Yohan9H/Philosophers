@@ -6,13 +6,13 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 11:02:11 by yohan.h           #+#    #+#             */
-/*   Updated: 2024/07/18 10:56:41 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/23 11:38:55 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static int	verif_signe(const char *str, size_t *i)
+static int	verif_signe(const char *str, long *i)
 {
 	int	sgn;
 
@@ -28,7 +28,7 @@ static int	verif_signe(const char *str, size_t *i)
 
 int	check_not_digit(const char *str)
 {
-	size_t	i;
+	long	i;
 
 	i = 0;
 	while (str[i])
@@ -40,11 +40,11 @@ int	check_not_digit(const char *str)
 	return (0);
 }
 
-size_t	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
-	size_t	i;
+	long	i;
 	int		signe;
-	size_t	res;
+	long	res;
 
 	i = 0;
 	res = 0;
