@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:13:07 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/23 19:02:14 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:17:51 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ typedef	struct s_data
 	mutex		write_lock;
 	mutex		*forks;
 	timeval		start;
-	long		set_t_die; //av[2]
-	long		set_t_eat; //av[3]
-	long		set_t_sleep; //av[4]
-	int			nb_philo; 	//av[1]
-	int			nb_eat; 	//av[5]
+	long		set_t_die;
+	long		set_t_eat;
+	long		set_t_sleep;
+	int			nb_philo;
+	int			nb_eat;
+	int			one_time;
 }	t_data;
 
 typedef struct s_philo
@@ -48,8 +49,8 @@ typedef struct s_philo
 	size_t		time_to_die;
 	size_t		time_to_eat;
 	size_t		time_to_sleep;
-	mutex		l_fork;
-	mutex		r_fork;
+	mutex		*l_fork;
+	mutex		*r_fork;
 	mutex		*dead_lock;
 	mutex		*eat_lock;
 	mutex		*write_lock;
@@ -62,7 +63,7 @@ long	ft_atoi(const char *str);
 
 void	error(int code_error);
 
-void	init_data(t_data *data, mutex forks[]);
+void	init_data(t_data *data, mutex *forks);
 
 void	init_forks(t_data *data);
 

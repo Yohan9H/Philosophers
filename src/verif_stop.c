@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:53:34 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/23 19:42:44 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/24 12:13:36 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	if_stop(t_data *data, t_philo *philos)
 			{
 				data->dead_flag = 1;
 				pthread_mutex_unlock(&data->dead_lock);
-				print_status(&philos[i], "died", give_time(data));
 				return ;
 			}
 			pthread_mutex_unlock(&data->dead_lock);

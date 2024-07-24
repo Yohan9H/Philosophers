@@ -6,15 +6,16 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:53:43 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/23 19:35:48 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:18:01 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	init_data(t_data *data, mutex forks[])
+void	init_data(t_data *data, mutex *forks)
 {
 	data->dead_flag = 0;
+	data->one_time = 0;
 	pthread_mutex_init(&data->dead_lock, NULL);
 	pthread_mutex_init(&data->eat_lock, NULL);
 	pthread_mutex_init(&data->write_lock, NULL);
@@ -53,16 +54,11 @@ void	init_philo(t_philo *philos, t_data *data)
 		philos[i].dead_lock = &data->dead_lock;
 		philos[i].eat_lock = &data->eat_lock;
 		philos[i].write_lock = &data->write_lock;
-		if (i % 2 == 0)
-		{
-			philos[i].l_fork = philos[i].data->forks[i];
-			philos[i].r_fork = philos[i].data->forks[(i + 1) % nb_p];
-		}
+		philos[i].l_fork = &philos[i].data->forks[i];
+		if (i < nb_p - 1)
+			philos[i].r_fork = &philos[i].data->forks[i + 1];
 		else
-		{
-			philos[i].l_fork = philos[i].data->forks[(i + 1) % nb_p];
-			philos[i].r_fork = philos[i].data->forks[i];
-		}
+			philos[i].r_fork = &philos[i].data->forks[0];
 		i++;
 	}
 }
