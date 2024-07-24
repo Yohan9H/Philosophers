@@ -6,15 +6,15 @@
 #    By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 16:12:23 by yohurteb          #+#    #+#              #
-#    Updated: 2024/07/24 10:35:08 by yohurteb         ###   ########.fr        #
+#    Updated: 2024/07/24 15:11:37 by yohurteb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philosophers
 
-CC = cc -g
+CC = cc
 
-CFLAGS = -Wall -Werror -Wextra -I include/
+CFLAGS = -Wall -Werror -Wextra -I include -pthread -g
 
 SRCS = \
 	src/main.c \

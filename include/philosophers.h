@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:13:07 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/24 13:17:51 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:41:06 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,6 @@ typedef struct s_philo
 	size_t		time_to_sleep;
 	mutex		*l_fork;
 	mutex		*r_fork;
-	mutex		*dead_lock;
-	mutex		*eat_lock;
-	mutex		*write_lock;
 	t_data		*data;
 }	t_philo;
 
@@ -82,5 +79,7 @@ long	give_time(t_data *data);
 int		ft_usleep(size_t milliseconds, t_data *data);
 
 void	print_status(t_philo *philo, char *str, long time);
+
+int	if_dead(t_philo *philo);
 
 #endif

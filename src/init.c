@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:53:43 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/24 13:18:01 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/24 17:49:10 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,8 @@ void	init_philo(t_philo *philos, t_data *data)
 		philos[i].time_to_die = data->set_t_die;
 		philos[i].time_to_eat = data->set_t_eat;
 		philos[i].time_to_sleep = data->set_t_sleep;
-		philos[i].dead_lock = &data->dead_lock;
-		philos[i].eat_lock = &data->eat_lock;
-		philos[i].write_lock = &data->write_lock;
 		philos[i].l_fork = &philos[i].data->forks[i];
-		if (i < nb_p - 1)
-			philos[i].r_fork = &philos[i].data->forks[i + 1];
-		else
-			philos[i].r_fork = &philos[i].data->forks[0];
+		philos[i].r_fork = &philos[i].data->forks[(i + 1) % data->nb_philo];
 		i++;
 	}
 }
