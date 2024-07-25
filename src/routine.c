@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 10:48:25 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/25 13:07:06 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:59:37 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	take_fork(t_philo *philo)
 	}
 }
 
-// faire condition pour 1 philo
 void	ft_eat(t_philo *philo)
 {
 	if (if_dead(philo) == -1 && if_eat_finish(philo) == -1)
@@ -68,6 +67,11 @@ void	*routine(void *philo_void)
 	t_philo	*philo;
 
 	philo = (t_philo *)philo_void;
+	if (philo->data->nb_philo == 1)
+	{
+		// faire code 1 philo;
+		return (NULL);
+	}
 	while (if_dead(philo) == 0 && if_eat_finish(philo) == 0)
 	{
 		ft_eat(philo);

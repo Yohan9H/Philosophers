@@ -6,12 +6,35 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:53:34 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/25 13:35:49 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:48:57 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 //"valgrind --tool=helgrind ./philosophers 5 800 200 200"
+
+int	verif_all_philo_eat(t_data *data)
+{
+	pthread_mutex_lock(&data->eat_lock);
+	if (data->philo_eat_max >= data->nb_philo)
+	{
+		data->eat_flag = 1;
+		pthread_mutex_unlock(&data->eat_lock);
+		return (-1);
+	}
+	pthread_mutex_unlock(&data->eat_lock);
+	return (0);
+}
+
+void	verif_philo_eat(t_data *data, t_philo *philos, int i)
+{
+	pthread_mutex_lock(&data->eat_lock);
+	if (data->nb_eat > 0 && philos[i].eating >= data->nb_eat)
+	{
+		data->philo_eat_max++;
+	}
+	pthread_mutex_unlock(&data->eat_lock);
+}
 
 void	if_stop(t_data *data, t_philo *philos)
 {
@@ -29,22 +52,12 @@ void	if_stop(t_data *data, t_philo *philos)
 				return ;
 			}
 			pthread_mutex_unlock(&data->dead_lock);
-			pthread_mutex_lock(&data->eat_lock);
-			if (data->nb_eat > 0)
-				if (philos[i].eating >= data->nb_eat)
-				{
-					data->philo_eat_max++;
-					if (data->philo_eat_max >= data->nb_eat)
-					{
-						data->eat_flag = 1;
-						printf("NB_EAT_MAX : %d\n", data->philo_eat_max);
-						pthread_mutex_unlock(&data->eat_lock);
-						return ;
-					}
-				}
-			pthread_mutex_unlock(&data->eat_lock);
+			verif_philo_eat(data, philos, i);
 			i++;
 		}
+		if (verif_all_philo_eat(data) == -1)
+			return ;
+		data->philo_eat_max = 0;
 		i = 0;
 	}
 	return ;

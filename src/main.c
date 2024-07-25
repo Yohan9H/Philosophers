@@ -6,13 +6,13 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:04:45 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/25 11:41:13 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:28:44 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	main(int ac, char **av)
+int	main(int ac, char **av) // gerer les impairs et le 1 philo
 {
 	t_data	data;
 	t_philo	philos[MAX_PHILO];
