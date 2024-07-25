@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:53:43 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/25 13:08:58 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:25:03 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	init_data(t_data *data, mutex *forks)
 	data->dead_flag = 0;
 	data->eat_flag = 0;
 	data->one_time = 0;
+	data->philo_eat_max = 0;
 	pthread_mutex_init(&data->dead_lock, NULL);
 	pthread_mutex_init(&data->eat_lock, NULL);
 	pthread_mutex_init(&data->write_lock, NULL);

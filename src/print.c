@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 13:12:33 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/25 14:55:55 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:50:44 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	print_status(t_philo *philo, char *str, long time)
 	{
 		pthread_mutex_lock(&philo->data->write_lock);
 		philo->data->one_time = 1;
-		printf("%ld %s\n", time, "all philo eating");
+		printf("%ld %s\n", time, "all philo ate");
 		pthread_mutex_unlock(&philo->data->write_lock);
 	}
 	else if (philo->data->one_time == 0)

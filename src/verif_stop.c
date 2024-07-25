@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:53:34 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/25 14:48:57 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:42:56 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,25 @@ void	verif_philo_eat(t_data *data, t_philo *philos, int i)
 	pthread_mutex_unlock(&data->eat_lock);
 }
 
+int	if_one_philo(t_data *data)
+{
+	pthread_mutex_lock(&data->write_lock);
+	if (data->nb_philo == 1)
+	{
+		pthread_mutex_unlock(&data->write_lock);
+		return (-1);
+	}
+	pthread_mutex_unlock(&data->write_lock);
+	return (0);
+}
+
 void	if_stop(t_data *data, t_philo *philos)
 {
 	int 	i;
 
 	i = 0;
+	if (if_one_philo(data) == -1)
+		return ;
 	while (1)
 	{
 		while(i < data->nb_philo)

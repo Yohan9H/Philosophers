@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 10:48:25 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/25 13:59:37 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:48:28 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,10 @@
 
 void	take_fork(t_philo *philo)
 {
-	if (philo->num % 2 == 0)
-	{
-		pthread_mutex_lock(philo->l_fork);
-		print_status(philo, "has taken a fork", give_time(philo->data));
-		pthread_mutex_lock(philo->r_fork);
-		print_status(philo, "has taken a fork", give_time(philo->data));
-	}
-	else
-	{
-		pthread_mutex_lock(philo->r_fork);
-		print_status(philo, "has taken a fork", give_time(philo->data));
-		pthread_mutex_lock(philo->l_fork);
-		print_status(philo, "has taken a fork", give_time(philo->data));
-	}
+	pthread_mutex_lock(philo->l_fork);
+	print_status(philo, "has taken a fork", give_time(philo->data));
+	pthread_mutex_lock(philo->r_fork);
+	print_status(philo, "has taken a fork", give_time(philo->data));
 }
 
 void	ft_eat(t_philo *philo)
@@ -67,16 +57,25 @@ void	*routine(void *philo_void)
 	t_philo	*philo;
 
 	philo = (t_philo *)philo_void;
+	pthread_mutex_lock(&philo->data->write_lock);
 	if (philo->data->nb_philo == 1)
 	{
-		// faire code 1 philo;
+		pthread_mutex_unlock(&philo->data->write_lock);
+		print_status(philo, "has taken a fork", give_time(philo->data));
+		pthread_mutex_lock(&philo->data->dead_lock);
+		philo->data->dead_flag = 1;
+		pthread_mutex_unlock(&philo->data->dead_lock);
+		print_status(philo, NULL, give_time(philo->data));
 		return (NULL);
 	}
+	pthread_mutex_unlock(&philo->data->write_lock);
+	if (philo->num % 2 == 0)
+		usleep(500);
 	while (if_dead(philo) == 0 && if_eat_finish(philo) == 0)
 	{
+		ft_think(philo);
 		ft_eat(philo);
 		ft_sleep(philo);
-		ft_think(philo);
 	}
 	return (NULL);
 }
