@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:13:07 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/24 16:41:06 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:30:37 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct timeval timeval;
 typedef	struct s_data
 {
 	int			dead_flag;
+	int			eat_flag;
+	int			philo_eat_max;
 	mutex		dead_lock;
 	mutex		eat_lock;
 	mutex		write_lock;
@@ -46,9 +48,9 @@ typedef struct s_philo
 	int			eating;
 	long		last_eat;
 	long		start_time;
-	size_t		time_to_die;
-	size_t		time_to_eat;
-	size_t		time_to_sleep;
+	long		time_to_die;
+	long		time_to_eat;
+	long		time_to_sleep;
 	mutex		*l_fork;
 	mutex		*r_fork;
 	t_data		*data;
@@ -80,6 +82,8 @@ int		ft_usleep(size_t milliseconds, t_data *data);
 
 void	print_status(t_philo *philo, char *str, long time);
 
-int	if_dead(t_philo *philo);
+int		if_dead(t_philo *philo);
+
+int		if_eat_finish(t_philo *philo);
 
 #endif
