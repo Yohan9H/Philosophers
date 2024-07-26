@@ -6,7 +6,7 @@
 #    By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 16:12:23 by yohurteb          #+#    #+#              #
-#    Updated: 2024/07/25 13:47:39 by yohurteb         ###   ########.fr        #
+#    Updated: 2024/07/26 14:50:40 by yohurteb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = philo
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra -I include -pthread -g
+#-pthread -fsanitize=thread
+CFLAGS = -Wall -Werror -Wextra -I include -g
 
 SRCS = \
 	src/main.c \
@@ -26,6 +27,7 @@ SRCS = \
 	src/verif_stop.c \
 	utils/time.c \
 	utils/ft_atoi.c \
+	utils/check_break.c \
 	utils/error.c
 
 OBJS = $(SRCS:.c=.o)
@@ -33,7 +35,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 clean:
 	rm -f $(OBJS)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohan.h <yohan.h@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:53:43 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/26 09:42:51 by yohan.h          ###   ########.fr       */
+/*   Updated: 2024/07/26 14:32:36 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ void	init_forks(t_data *data)
 void	init_philo(t_philo *philos, t_data *data)
 {
 	int	i;
-	// int	nb_p;
+	int	nb_p;
 
-	// nb_p = data->nb_philo;
+	nb_p = data->nb_philo;
 	i = 0;
-	while (i < data->nb_philo)
+	while (i < nb_p)
 	{
 		philos[i].data = data;
 		philos[i].num = i;
@@ -54,7 +54,7 @@ void	init_philo(t_philo *philos, t_data *data)
 		philos[i].time_to_eat = data->set_t_eat;
 		philos[i].time_to_sleep = data->set_t_sleep;
 		philos[i].l_fork = &philos[i].data->forks[i];
-		philos[i].r_fork = &philos[i].data->forks[(i + 1) % philos->data->nb_philo]; // utiliser nb_p
+		philos[i].r_fork = &philos[i].data->forks[(i + 1) % nb_p];
 		i++;
 	}
 }

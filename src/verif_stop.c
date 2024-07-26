@@ -6,12 +6,11 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:53:34 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/25 17:42:56 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/26 11:35:20 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-//"valgrind --tool=helgrind ./philosophers 5 800 200 200"
 
 int	verif_all_philo_eat(t_data *data)
 {

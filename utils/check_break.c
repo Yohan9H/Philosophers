@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check_break.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 18:04:45 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/26 11:35:25 by yohurteb         ###   ########.fr       */
+/*   Created: 2024/07/26 11:07:30 by yohurteb          #+#    #+#             */
+/*   Updated: 2024/07/26 11:23:00 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-//"valgrind --tool=helgrind ./philosophers 5 800 200 200"
 
-int	main(int ac, char **av)
+int	check_break(t_philo *philo)
 {
-	t_data	data;
-	t_philo	philos[MAX_PHILO];
-	mutex	forks[MAX_PHILO];
-
-	gettimeofday(&data.start, NULL);
-	if (check_args(ac, av, &data) == 1)
+	if (if_dead(philo) == -1 || if_eat_finish(philo) == -1)
 	{
-		error(ERROR_ARG);
-		return (1);
+		print_status(philo, "", give_time(philo->data));
+		return (-1);
 	}
-	init_data(&data, forks);
-	init_forks(&data);
-	init_philo(philos, &data);
-	make_threads(philos, &data);
+	return (0);
 }

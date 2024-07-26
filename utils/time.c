@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohan.h <yohan.h@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 10:36:01 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/26 09:40:57 by yohan.h          ###   ########.fr       */
+/*   Updated: 2024/07/26 14:57:38 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,21 @@ long	give_time(t_data *data)
 		+ ((time.tv_usec - data->start.tv_usec) / 1000));
 }
 
-int	ft_usleep(size_t milliseconds, t_data *data)
+int	ft_usleep(size_t mseconds, t_data *data)
 {
 	size_t	start;
 
 	start = give_time(data);
 	pthread_mutex_lock(&data->dead_lock);
-	while (data->dead_flag == 0 && (give_time(data) - start) < milliseconds)
+	if (data->dead_flag == 1)
 	{
 		pthread_mutex_unlock(&data->dead_lock);
-		usleep(50);
+		return (0);
 	}
 	pthread_mutex_unlock(&data->dead_lock);
+	while ((give_time(data) - start) < mseconds)
+	{
+		usleep(50);
+	}
 	return (0);
 }

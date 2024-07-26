@@ -6,11 +6,30 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:47:19 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/25 17:31:47 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:01:33 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+int	one_philo(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->write_lock);
+	if (philo->data->nb_philo == 1)
+	{
+		pthread_mutex_unlock(&philo->data->write_lock);
+		print_status(philo, "is thinking", give_time(philo->data));
+		print_status(philo, "has taken a fork", give_time(philo->data));
+		ft_usleep(philo->time_to_die, philo->data);
+		pthread_mutex_lock(&philo->data->dead_lock);
+		philo->data->dead_flag = 1;
+		pthread_mutex_unlock(&philo->data->dead_lock);
+		print_status(philo, "", give_time(philo->data));
+		return (-1);
+	}
+	pthread_mutex_unlock(&philo->data->write_lock);
+	return (0);
+}
 
 int	if_eat_finish(t_philo *philo)
 {
@@ -27,7 +46,11 @@ int	if_eat_finish(t_philo *philo)
 int	if_dead(t_philo *philo)
 {
 	long current_time;
+	long last_e;
 
+	pthread_mutex_lock(&philo->data->eat_lock);
+	last_e = philo->last_eat;
+	pthread_mutex_unlock(&philo->data->eat_lock);
 	current_time = give_time(philo->data);
 	pthread_mutex_lock(&philo->data->dead_lock);
 	if (philo->data->dead_flag == 1)
@@ -35,7 +58,7 @@ int	if_dead(t_philo *philo)
 		pthread_mutex_unlock(&philo->data->dead_lock);
 		return (-1);
 	}
-	else if (current_time - philo->last_eat > philo->data->set_t_die)
+	else if (current_time - last_e > philo->data->set_t_die)
 	{
 		philo->data->dead_flag = 1;
 		pthread_mutex_unlock(&philo->data->dead_lock);

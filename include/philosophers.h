@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:13:07 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/25 13:30:37 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/26 11:32:28 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ typedef struct s_philo
 
 int		check_args(int ac, char **av, t_data *data);
 
+int		check_break(t_philo *philo);
+
 long	ft_atoi(const char *str);
 
 void	error(int code_error);
@@ -81,6 +83,8 @@ long	give_time(t_data *data);
 int		ft_usleep(size_t milliseconds, t_data *data);
 
 void	print_status(t_philo *philo, char *str, long time);
+
+int		one_philo(t_philo *philo);
 
 int		if_dead(t_philo *philo);
 
