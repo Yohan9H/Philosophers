@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 10:48:25 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/26 14:32:17 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/26 16:13:02 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	ft_eat(t_philo *philo)
 		return ;
 	}
 	print_status(philo, "is eating", give_time(philo->data));
+	philo->last_eat = give_time(philo->data);
 	ft_usleep(philo->time_to_eat, philo->data);
 	pthread_mutex_lock(&philo->data->eat_lock);
-	philo->last_eat = give_time(philo->data);
 	philo->eating++;
 	pthread_mutex_unlock(&philo->data->eat_lock);
 	pthread_mutex_unlock(philo->l_fork);
@@ -70,11 +70,10 @@ void	*routine(void *philo_void)
 	if (one_philo(philo) == -1)
 		return (NULL);
 	if (philo->num % 2 == 0)
-		usleep(500);
+		usleep(100);
 	while (if_dead(philo) == 0 && if_eat_finish(philo) == 0)
 	{
 		ft_think(philo);
-		if (if_dead(philo) == -1 || if_eat_finish(philo) == -1)
 		if (check_break(philo) == -1)
 			break;
 		ft_eat(philo);
