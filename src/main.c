@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yohan.h <yohan.h@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:04:45 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/25 15:33:38 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/26 09:42:51 by yohan.h          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	main(int ac, char **av) // gerer les impairs et le 1 et 2 philo 
+int	main(int ac, char **av)
 {
 	t_data	data;
 	t_philo	philos[MAX_PHILO];

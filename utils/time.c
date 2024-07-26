@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yohan.h <yohan.h@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 10:36:01 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/25 17:52:56 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/26 09:40:57 by yohan.h          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,13 @@ int	ft_usleep(size_t milliseconds, t_data *data)
 {
 	size_t	start;
 
-	start = give_time(data); // faire un check pour voir si le prog doit s arreter et puis c'est good ./philo 610 300 100
-	while ((give_time(data) - start) < milliseconds)
+	start = give_time(data);
+	pthread_mutex_lock(&data->dead_lock);
+	while (data->dead_flag == 0 && (give_time(data) - start) < milliseconds)
+	{
+		pthread_mutex_unlock(&data->dead_lock);
 		usleep(50);
+	}
+	pthread_mutex_unlock(&data->dead_lock);
 	return (0);
 }
