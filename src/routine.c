@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 10:48:25 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/26 16:13:02 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:05:11 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,39 @@
 
 void	take_fork(t_philo *philo)
 {
-	if (philo->num % 2 == 0)
+	if (philo->data->nb_philo % 2 == 0)
 	{
-		pthread_mutex_lock(philo->l_fork);
-		print_status(philo, "has taken a fork", give_time(philo->data));
-		pthread_mutex_lock(philo->r_fork);
-		print_status(philo, "has taken a fork", give_time(philo->data));
+		if (philo->num % 2 == 0)
+		{
+			pthread_mutex_lock(philo->l_fork);
+			print_status(philo, "has taken a fork", give_time(philo->data));
+			pthread_mutex_lock(philo->r_fork);
+			print_status(philo, "has taken a fork", give_time(philo->data));
+		}
+		else
+		{
+			pthread_mutex_lock(philo->r_fork);
+			print_status(philo, "has taken a fork", give_time(philo->data));
+			pthread_mutex_lock(philo->l_fork);
+			print_status(philo, "has taken a fork", give_time(philo->data));
+		}
 	}
 	else
 	{
-		pthread_mutex_lock(philo->r_fork);
-		print_status(philo, "has taken a fork", give_time(philo->data));
 		pthread_mutex_lock(philo->l_fork);
+		print_status(philo, "has taken a fork", give_time(philo->data));
+		pthread_mutex_lock(philo->r_fork);
 		print_status(philo, "has taken a fork", give_time(philo->data));
 	}
 }
 
 void	ft_eat(t_philo *philo)
 {
-	if (check_break(philo) == -1)
-		return ;
 	take_fork(philo);
-	if (check_break(philo) == -1)
-	{
-		pthread_mutex_unlock(philo->l_fork);
-		pthread_mutex_unlock(philo->r_fork);
-		return ;
-	}
 	print_status(philo, "is eating", give_time(philo->data));
+	pthread_mutex_lock(&philo->data->eat_lock);
 	philo->last_eat = give_time(philo->data);
+	pthread_mutex_unlock(&philo->data->eat_lock);
 	ft_usleep(philo->time_to_eat, philo->data);
 	pthread_mutex_lock(&philo->data->eat_lock);
 	philo->eating++;

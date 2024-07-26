@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:53:34 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/26 11:35:20 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:16:02 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,8 @@ void	if_stop(t_data *data, t_philo *philos)
 	{
 		while(i < data->nb_philo)
 		{
-			pthread_mutex_lock(&data->dead_lock);
-			if (data->dead_flag == 1)
-			{
-				pthread_mutex_unlock(&data->dead_lock);
+			if (if_dead(&philos[i]) == -1)
 				return ;
-			}
-			pthread_mutex_unlock(&data->dead_lock);
 			verif_philo_eat(data, philos, i);
 			i++;
 		}
@@ -72,6 +67,7 @@ void	if_stop(t_data *data, t_philo *philos)
 			return ;
 		data->philo_eat_max = 0;
 		i = 0;
+		usleep(100);
 	}
 	return ;
 }
