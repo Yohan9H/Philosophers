@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 10:36:01 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/26 16:49:16 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:35:06 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 long	give_time(t_data *data)
 {
-	timeval	time;
+	t_timeval	time;
 
 	gettimeofday(&time, NULL);
-	return (((time.tv_sec - data->start.tv_sec) * 1000) 
+	return (((time.tv_sec - data->start.tv_sec) * 1000)
 		+ ((time.tv_usec - data->start.tv_usec) / 1000));
 }
 
@@ -39,8 +39,6 @@ int	ft_usleep(size_t mseconds, t_data *data)
 
 	start = give_time(data);
 	while (ptc_dead_flag(data) == 0 && (give_time(data) - start) < mseconds)
-	{
-		usleep(50); 	
-	}
+		usleep(50);
 	return (0);
 }

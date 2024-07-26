@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:53:34 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/26 17:16:02 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:34:17 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ int	if_one_philo(t_data *data)
 
 void	if_stop(t_data *data, t_philo *philos)
 {
-	int 	i;
+	int	i;
 
 	i = 0;
 	if (if_one_philo(data) == -1)
 		return ;
 	while (1)
 	{
-		while(i < data->nb_philo)
+		while (i < data->nb_philo)
 		{
 			if (if_dead(&philos[i]) == -1)
 				return ;

@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 10:48:25 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/26 17:05:11 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:33:32 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_think(t_philo *philo)
 {
 	print_status(philo, "is thinking", give_time(philo->data));
 }
- 
+
 void	*routine(void *philo_void)
 {
 	t_philo	*philo;
@@ -79,13 +79,13 @@ void	*routine(void *philo_void)
 	{
 		ft_think(philo);
 		if (check_break(philo) == -1)
-			break;
+			break ;
 		ft_eat(philo);
 		if (check_break(philo) == -1)
-			break;
+			break ;
 		ft_sleep(philo);
 		if (check_break(philo) == -1)
-			break;
+			break ;
 	}
 	return (NULL);
 }

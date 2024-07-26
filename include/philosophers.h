@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:13:07 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/26 11:32:28 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:32:15 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@
 # define ERROR_ARG 0
 # define MAX_PHILO 200
 
-typedef pthread_mutex_t mutex;
+typedef pthread_mutex_t	t_mutex;
 
-typedef struct timeval timeval;
+typedef struct timeval	t_timeval;
 
-typedef	struct s_data
+typedef struct s_data
 {
 	int			dead_flag;
 	int			eat_flag;
 	int			philo_eat_max;
-	mutex		dead_lock;
-	mutex		eat_lock;
-	mutex		write_lock;
-	mutex		*forks;
-	timeval		start;
+	t_mutex		dead_lock;
+	t_mutex		eat_lock;
+	t_mutex		write_lock;
+	t_mutex		*forks;
+	t_timeval	start;
 	long		set_t_die;
 	long		set_t_eat;
 	long		set_t_sleep;
@@ -51,8 +51,8 @@ typedef struct s_philo
 	long		time_to_die;
 	long		time_to_eat;
 	long		time_to_sleep;
-	mutex		*l_fork;
-	mutex		*r_fork;
+	t_mutex		*l_fork;
+	t_mutex		*r_fork;
 	t_data		*data;
 }	t_philo;
 
@@ -64,7 +64,7 @@ long	ft_atoi(const char *str);
 
 void	error(int code_error);
 
-void	init_data(t_data *data, mutex *forks);
+void	init_data(t_data *data, t_mutex *forks);
 
 void	init_forks(t_data *data);
 

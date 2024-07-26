@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 11:02:11 by yohan.h           #+#    #+#             */
-/*   Updated: 2024/07/23 11:38:55 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:34:31 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ long	ft_atoi(const char *str)
 	res = 0;
 	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
 		i++;
-
 	signe = verif_signe(str, &i);
 	if (signe == -1)
 		return (-1);

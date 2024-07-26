@@ -6,13 +6,13 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:53:43 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/26 14:32:36 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:31:05 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	init_data(t_data *data, mutex *forks)
+void	init_data(t_data *data, t_mutex *forks)
 {
 	data->dead_flag = 0;
 	data->eat_flag = 0;

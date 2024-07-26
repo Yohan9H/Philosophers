@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:47:19 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/26 16:59:51 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:33:57 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	if_eat_finish(t_philo *philo)
 
 int	if_dead(t_philo *philo)
 {
-	long current_time;
-	long last_e;
+	long	current_time;
+	long	last_e;
 
 	pthread_mutex_lock(&philo->data->eat_lock);
 	last_e = philo->last_eat;
@@ -75,7 +75,7 @@ int	make_threads(t_philo *philos, t_data *data)
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		if (pthread_create(&philos[i].thread, NULL, &routine, &philos[i]) 
+		if (pthread_create(&philos[i].thread, NULL, &routine, &philos[i])
 			!= 0)
 			return (free_all(philos), -1);
 		i++;

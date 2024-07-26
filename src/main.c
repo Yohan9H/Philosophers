@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:04:45 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/26 11:35:25 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:31:05 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int ac, char **av)
 {
 	t_data	data;
 	t_philo	philos[MAX_PHILO];
-	mutex	forks[MAX_PHILO];
+	t_mutex	forks[MAX_PHILO];
 
 	gettimeofday(&data.start, NULL);
 	if (check_args(ac, av, &data) == 1)

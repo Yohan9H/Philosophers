@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:25:36 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/23 11:37:59 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:33:04 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int	check_nb(int ac, char **av, t_data *data)
 {
-	if (ft_atoi(av[1]) == -1 || ft_atoi(av[2]) == -1 || ft_atoi(av[3]) == -1 
+	if (ft_atoi(av[1]) == -1 || ft_atoi(av[2]) == -1 || ft_atoi(av[3]) == -1
 		|| ft_atoi(av[4]) == -1 || ft_atoi(av[1]) > 200)
 		return (-1);
 	data->nb_philo = ft_atoi(av[1]);
 	data->set_t_die = ft_atoi(av[2]);
 	data->set_t_eat = ft_atoi(av[3]);
 	data->set_t_sleep = ft_atoi(av[4]);
-	if (ac ==  6)
+	if (ac == 6)
 	{
 		if (ft_atoi(av[5]) == -1)
 			return (-1);
