@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 10:48:25 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/26 17:33:32 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/28 14:34:47 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,7 @@ void	take_fork(t_philo *philo)
 		}
 	}
 	else
-	{
-		pthread_mutex_lock(philo->l_fork);
-		print_status(philo, "has taken a fork", give_time(philo->data));
-		pthread_mutex_lock(philo->r_fork);
-		print_status(philo, "has taken a fork", give_time(philo->data));
-	}
+		take_fork_long(philo);
 }
 
 void	ft_eat(t_philo *philo)

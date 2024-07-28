@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:53:43 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/26 17:31:05 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/28 14:27:59 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_data(t_data *data, t_mutex *forks)
 	pthread_mutex_init(&data->dead_lock, NULL);
 	pthread_mutex_init(&data->eat_lock, NULL);
 	pthread_mutex_init(&data->write_lock, NULL);
+	pthread_mutex_init(&data->check_lock, NULL);
 	data->forks = forks;
 }
 

@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 11:07:30 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/26 16:28:08 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/28 14:39:44 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ int	check_break(t_philo *philo)
 {
 	if (verif_dead_flag(philo->data) == -1 || if_eat_finish(philo) == -1)
 	{
+		pthread_mutex_lock(&philo->data->check_lock);
 		print_status(philo, "", give_time(philo->data));
+		pthread_mutex_unlock(&philo->data->check_lock);
 		return (-1);
 	}
 	return (0);

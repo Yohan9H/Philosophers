@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 13:12:33 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/26 11:57:26 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/28 14:41:15 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	protect_one_time(t_philo *philo)
 
 void	print_status(t_philo *philo, char *str, long time)
 {
-	if (if_dead(philo) == 0 && if_eat_finish(philo) == 0)
+	if (if_dead(philo) == 0 && if_eat_finish(philo) == 0
+		&& protect_one_time(philo) == 0)
 	{
 		pthread_mutex_lock(&philo->data->write_lock);
 		printf("%ld %d %s\n", time, philo->num, str);
@@ -46,4 +47,6 @@ void	print_status(t_philo *philo, char *str, long time)
 		printf("%ld %d %s\n", time, philo->num, "died");
 		pthread_mutex_unlock(&philo->data->write_lock);
 	}
+	else
+		return ;
 }

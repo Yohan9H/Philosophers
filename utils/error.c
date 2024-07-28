@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:44:26 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/25 16:39:39 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/28 14:28:06 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	free_all(t_philo *philos)
 	pthread_mutex_destroy(&philos->data->dead_lock);
 	pthread_mutex_destroy(&philos->data->eat_lock);
 	pthread_mutex_destroy(&philos->data->write_lock);
+	pthread_mutex_destroy(&philos->data->check_lock);
 }
 
 void	error(int code_error)
