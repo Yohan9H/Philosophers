@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:13:07 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/28 14:27:48 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:44:22 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ int		make_threads(t_philo *philos, t_data *data);
 void	if_stop(t_data *data, t_philo *philos);
 
 void	*routine(void *philo);
-
-void	take_fork_long(t_philo *philo);
 
 void	free_all(t_philo *philos);
 

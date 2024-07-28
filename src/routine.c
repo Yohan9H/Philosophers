@@ -6,7 +6,7 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 10:48:25 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/28 14:34:47 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:26:25 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,20 @@
 
 void	take_fork(t_philo *philo)
 {
-	if (philo->data->nb_philo % 2 == 0)
+	if (philo->num % 2 == 0)
 	{
-		if (philo->num % 2 == 0)
-		{
-			pthread_mutex_lock(philo->l_fork);
-			print_status(philo, "has taken a fork", give_time(philo->data));
-			pthread_mutex_lock(philo->r_fork);
-			print_status(philo, "has taken a fork", give_time(philo->data));
-		}
-		else
-		{
-			pthread_mutex_lock(philo->r_fork);
-			print_status(philo, "has taken a fork", give_time(philo->data));
-			pthread_mutex_lock(philo->l_fork);
-			print_status(philo, "has taken a fork", give_time(philo->data));
-		}
+		pthread_mutex_lock(philo->l_fork);
+		print_status(philo, "has taken a fork", give_time(philo->data));
+		pthread_mutex_lock(philo->r_fork);
+		print_status(philo, "has taken a fork", give_time(philo->data));
 	}
 	else
-		take_fork_long(philo);
+	{
+		pthread_mutex_lock(philo->r_fork);
+		print_status(philo, "has taken a fork", give_time(philo->data));
+		pthread_mutex_lock(philo->l_fork);
+		print_status(philo, "has taken a fork", give_time(philo->data));
+	}
 }
 
 void	ft_eat(t_philo *philo)
@@ -59,6 +54,8 @@ void	ft_sleep(t_philo *philo)
 void	ft_think(t_philo *philo)
 {
 	print_status(philo, "is thinking", give_time(philo->data));
+	ft_usleep(philo->data->set_t_die - philo->data->set_t_eat
+		- philo->data->set_t_sleep - 10, philo->data);
 }
 
 void	*routine(void *philo_void)
@@ -68,17 +65,15 @@ void	*routine(void *philo_void)
 	philo = (t_philo *)philo_void;
 	if (one_philo(philo) == -1)
 		return (NULL);
-	if (philo->num % 2 == 0)
-		usleep(100);
 	while (if_dead(philo) == 0 && if_eat_finish(philo) == 0)
 	{
-		ft_think(philo);
-		if (check_break(philo) == -1)
-			break ;
 		ft_eat(philo);
 		if (check_break(philo) == -1)
 			break ;
 		ft_sleep(philo);
+		if (check_break(philo) == -1)
+			break ;
+		ft_think(philo);
 		if (check_break(philo) == -1)
 			break ;
 	}

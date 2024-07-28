@@ -6,30 +6,11 @@
 /*   By: yohurteb <yohurteb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:47:19 by yohurteb          #+#    #+#             */
-/*   Updated: 2024/07/28 14:42:09 by yohurteb         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:44:06 by yohurteb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-void	take_fork_long(t_philo *philo)
-{
-	if (philo->num % 2 == 0)
-	{
-		pthread_mutex_lock(philo->l_fork);
-		print_status(philo, "has taken a fork", give_time(philo->data));
-		pthread_mutex_lock(philo->r_fork);
-		print_status(philo, "has taken a fork", give_time(philo->data));
-	}
-	else
-	{
-		usleep(100);
-		pthread_mutex_lock(philo->r_fork);
-		print_status(philo, "has taken a fork", give_time(philo->data));
-		pthread_mutex_lock(philo->l_fork);
-		print_status(philo, "has taken a fork", give_time(philo->data));
-	}
-}
 
 int	one_philo(t_philo *philo)
 {
